@@ -155,10 +155,11 @@ export function drawLayers(x:CanvasRenderingContext2D,layers:Layer[],area:{x:num
     x.save()
     x.translate(px,py)
     x.rotate(l.rotate*Math.PI/180)
-    x.scale(l.scale,l.scale)
+    x.scale(l.scale*(l.flipX?-1:1),l.scale*(l.flipY?-1:1))
+    if(l.opacity!=null&&l.opacity<1)x.globalAlpha=l.opacity
     if(l.type==='text'){
       const size=l.fontSize||32
-      x.font=`800 ${size}px Arial, "Heiti SC", sans-serif`
+      x.font=`${l.bold===false?'400':'800'} ${size}px ${l.fontFamily||'Arial, "Heiti SC", sans-serif'}`
       x.textAlign='center'
       x.textBaseline='middle'
       x.fillStyle=l.color||'#262a33'

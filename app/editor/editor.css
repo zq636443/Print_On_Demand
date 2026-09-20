@@ -33,3 +33,9 @@
 .publish-btn{background:#4d69f6;color:#fff;font-size:18px;font-weight:800;padding:13px 40px;border-radius:6px;margin-left:10px}
 .help-btn{cursor:pointer}
 .panel-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);background:#fff;border:1px solid #e0dfd8;border-right:0;border-radius:8px 0 0 8px;padding:16px 7px;z-index:25;color:#4a4a31;font-size:13px}
+.layer-tools{display:flex;align-items:center;gap:2px}
+.opacity-box{display:flex;align-items:center;gap:7px;font-size:13px;color:#4a4a32;font-weight:700;white-space:nowrap}
+.opacity-box input{width:84px}
+.font-select{height:45px;border:1px solid #dddcd3;border-radius:6px;background:#fff;font:inherit;font-weight:700;color:#4a4a32;padding:0 8px}
+.icon-tool.on-bold{background:#e8f5d0;color:#3d5211;border:1px solid #b9d88a!important;border-radius:6px}
+.opacity-box input[type=range],.text-props input[type=range]{accent-color:#9aba55}

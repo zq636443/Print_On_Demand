@@ -12,13 +12,14 @@ function svgToImage(svg:string){
   })
 }
 
-export async function exportPng(kind:GarmentKind,color:string,face:'front'|'back',layers:Layer[]){
+// 合成服装+设计的预览图，返回 dataURL（导出/发布共用）
+export async function composePng(kind:GarmentKind,color:string,face:'front'|'back',layers:Layer[]):Promise<string>{
   await ensureGarment()
   await Promise.all(layers.filter(l=>l.src).map(l=>loadSrc(l.src as string)))
   const c=document.createElement('canvas')
   const scale=2
   const x=c.getContext('2d')
-  if(!x)return
+  if(!x)return ''
   let area
   if(kind==='tshirt'){
     c.width=SRC_W*scale;c.height=SRC_H*scale
@@ -33,8 +34,12 @@ export async function exportPng(kind:GarmentKind,color:string,face:'front'|'back
     area=GARMENTS[kind].areaVb
   }
   drawLayers(x,layers,area)
-  const blob=await new Promise<Blob|null>(res=>c.toBlob(res,'image/png'))
-  if(!blob)return
+  return c.toDataURL('image/png')
+}
+
+export async function exportPng(kind:GarmentKind,color:string,face:'front'|'back',layers:Layer[]){
+  const dataUrl=await composePng(kind,color,face,layers)
+  const blob=await(await fetch(dataUrl)).blob()
   const a=document.createElement('a')
   a.href=URL.createObjectURL(blob)
   a.download='zhizao-product.png'
